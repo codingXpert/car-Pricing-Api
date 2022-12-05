@@ -3,6 +3,7 @@ import {
     Controller,
     Post,
     Get,
+    Delete,
     Patch,
     Param,
     Query,
@@ -27,5 +28,10 @@ import {
     @Get()
     findAllUsers(@Query('email') email: string) {
       return this.usersService.find(email);
+    }
+
+    @Delete('/:id')
+    removeUser(@Param('id') id:string){
+        return this.usersService.remove(parseInt(id));
     }
   }
