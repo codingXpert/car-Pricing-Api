@@ -7,6 +7,7 @@ import {
     Patch,
     Param,
     Query,
+    NotFoundException
   } from '@nestjs/common';
   import { updateUserDto } from './dtos/update-user-dto';
   import { CreateUserDto } from './dtos/create-user.dto';
@@ -22,8 +23,12 @@ import {
     }
   
     @Get('/:id')
-    findUser(@Param('id') id: string) {
-      return this.usersService.findOne(parseInt(id));
+    async findUser(@Param('id') id: string) {
+      const user =  this.usersService.findOne(parseInt(id));
+      if(!user){
+        throw new NotFoundException('user not found')
+      }
+      return user;
     }
   
     @Get()
