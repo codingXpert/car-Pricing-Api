@@ -30,7 +30,13 @@ export class UsersService {
         Object.assign(user, attrs);  // put in the user we just found and then an object describing all the updates we want to copy over to that object
         return this.repo.save(user); 
     }
-    
-     remove(){}
+
+     async remove(id:number){
+        const user = await this.findOne(id);
+        if(!user){
+            throw new Error('user not found')
+        }
+        return this.repo.remove(user);
+     }
 
 }
