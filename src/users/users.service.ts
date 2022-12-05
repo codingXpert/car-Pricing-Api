@@ -18,11 +18,19 @@ export class UsersService {
      }
 
      find(email:string){
-        return this.repo.findBy({email})
+        return this.repo.findBy({email});
      }
 
-     update(){}
+     async update(id:number , attrs:Partial<User>){
+        const user = await this.findOne(id);
+        if(!user){
+            throw new Error('user not found')
+        }
 
+        Object.assign(user, attrs);  // put in the user we just found and then an object describing all the updates we want to copy over to that object
+        return this.repo.save(user); 
+    }
+    
      remove(){}
 
 }
