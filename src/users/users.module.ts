@@ -5,8 +5,8 @@ import { UsersService } from './users.service';
 import { User } from './user.entity';
 
 @Module({
-  imports:[TypeOrmModule.forFeature([User])],  // this line of code will generate repository automayically with typeORM and nest
+  imports: [TypeOrmModule.forFeature([User])],
   controllers: [UsersController],
-  providers: [UsersService]
+  providers: [UsersService],
 })
 export class UsersModule {}
