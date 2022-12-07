@@ -33,6 +33,11 @@ import {
              return this.usersService.findOne(session.userId);  // if the user is not signed in then session.userId = Undefined
     }
 
+    @Post('/signout')
+    signOut(@Session() session:any){
+      session.userId = null;
+    }
+     
     @Post('/signup')
      async createUser(@Body() body: CreateUserDto , @Session() session:any) {
       const user = await this.authService.signup(body.email , body.password);
