@@ -7,6 +7,7 @@ import {
     Patch,
     Param,
     Query,
+    Session,
     NotFoundException,
   } from '@nestjs/common';
   import { updateUserDto } from './dtos/update-user-dto';
@@ -27,6 +28,16 @@ import {
       private authService:AuthService
       ) {}
   
+    @Get('/colors/:color')
+    setColor(@Param('color') color:string  , @Session() session:any){
+      session.color = color;
+    }
+
+    @Get('/colors')
+    getColor(@Session() session:any){
+      return session.color;
+    }
+
     @Post('/signup')
     createUser(@Body() body: CreateUserDto) {
       return this.authService.signup(body.email , body.password);

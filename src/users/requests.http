@@ -24,3 +24,11 @@ Content-Type: application/json
 {
     "email":"xyz@abc.com"
 }
+
+
+### Set a color
+GET http://localhost:3000/auth/colors/red
+
+
+### GET the color
+GET http://localhost:3000/auth/colors
