@@ -28,6 +28,11 @@ import {
       private authService:AuthService
       ) {}
   
+    @Get('/whoami')
+    whoAmI(@Session() session:any){   // This whoAmI is said to route handler
+             return this.usersService.findOne(session.userId);  // if the user is not signed in then session.userId = Undefined
+    }
+
     @Post('/signup')
      async createUser(@Body() body: CreateUserDto , @Session() session:any) {
       const user = await this.authService.signup(body.email , body.password);
