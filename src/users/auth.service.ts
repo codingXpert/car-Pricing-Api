@@ -43,7 +43,7 @@ export class AuthService{
         const user = await this.userService.create(email , result);
 
         // return the user
-        return user;
+      return user;
     }
 
     async signin(email:string  , password:string){
