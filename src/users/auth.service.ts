@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from "@nestjs/common";
+import { BadRequestException, Injectable, NotFoundException, Post } from "@nestjs/common";
 import { UsersService } from "./users.service";
 import { randomBytes , scrypt as _scrypt} from "crypto";  //randomBytes is going to generate our salt & scrypt is actual hashing function
 import { promisify } from "util";  //  promisify is a function that will take in a function that makes use of callback 
@@ -46,6 +46,28 @@ export class AuthService{
         return user;
     }
 
-    signin(){}
+    async signin(email:string  , password:string){
+      const[user] = await this.userService.find(email);
+      if(!user){
+        throw new NotFoundException('user not found');
+      }
+
+      console.log(user.password);
+      
+      const [salt , storedHash] = user.password.split('.');
+
+      const hash = (await scrypt(password , salt , 32)) as Buffer;
+
+      console.log(storedHash  );
+    console.log(hash.toString('hex'));
+      
+     
+      if(storedHash !== hash.toString('hex')){
+        throw new BadRequestException('Bad Password');
+      }
+
+      return user;
+
+    }
 }
 
