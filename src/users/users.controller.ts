@@ -17,7 +17,7 @@ import {
   import { UserDto } from './dtos/user.dto';
   import { serialize } from 'v8';
   import { AuthService } from './auth.service';
-
+  import { CurrentUser } from './decorators/current-user.decorators';
  
   
   @Controller('auth')
@@ -28,9 +28,14 @@ import {
       private authService:AuthService
       ) {}
   
+    // @Get('/whoami')
+    // whoAmI(@Session() session:any){   // This whoAmI is said to route handler
+    //          return this.usersService.findOne(session.userId);  // if the user is not signed in then session.userId = Undefined
+    // }
+
     @Get('/whoami')
-    whoAmI(@Session() session:any){   // This whoAmI is said to route handler
-             return this.usersService.findOne(session.userId);  // if the user is not signed in then session.userId = Undefined
+    whoAmI(@CurrentUser() user:string){
+      return user;
     }
 
     @Post('/signout')
