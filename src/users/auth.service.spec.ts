@@ -58,4 +58,21 @@ describe('AuthService', () => {
       service.signin('laskdjf@alskdfj.com', 'passowrd'),
     ).rejects.toThrow(BadRequestException);
   });
+
+
+
+  
+  it('returns a user if correct password is provided', async () => {
+    fakeUsersService.find = () =>
+      Promise.resolve([
+        {
+          email: 'asdf@asdf.com',
+          password:
+            '1f3f1f78b727fa56.af7186ab0d0a8e9cf1ae2c5c179784947a2fe349d3a3e82f6422c0d7cbc2f925',
+        } as User,
+      ]);
+
+    const user = await service.signin('asdf@asdf.com', 'mypassword');
+    expect(user).toBeDefined();
+  });
 });
