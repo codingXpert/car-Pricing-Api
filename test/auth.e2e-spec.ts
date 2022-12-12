@@ -22,7 +22,7 @@ describe('Authentication System', () => {
       .send({email , password:1234})
       .expect(201)
       .then((res) => {
-        const{ id , email } = res.body;
+        const{ id , email } = res.body
         expect(id).toBeDefined();
         expect(email).toEqual(email);
       });
