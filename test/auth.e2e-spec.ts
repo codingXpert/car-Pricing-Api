@@ -15,14 +15,15 @@ describe('Authentication System', () => {
     await app.init();
   });
 
-  it('handels a signup request', () => {
-    const email = 'abc@xyz.com';
+  it('handles a signup request', () => {
+    const email = 'asdlkq4321@akl.com';
+
     return request(app.getHttpServer())
       .post('/auth/signup')
-      .send({email , password:1234})
+      .send({ email, password: 'alskdfjl' })
       .expect(201)
       .then((res) => {
-        const{ id , email } = res.body
+        const { id, email } = res.body;
         expect(id).toBeDefined();
         expect(email).toEqual(email);
       });
