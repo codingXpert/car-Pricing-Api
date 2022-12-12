@@ -70,6 +70,7 @@
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
     },
+    "setupFilesAfterEnv":["<rootDir>/setup.ts"],
     "collectCoverageFrom": [
       "**/*.(t|j)s"
     ],
