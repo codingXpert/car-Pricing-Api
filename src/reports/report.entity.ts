@@ -32,6 +32,6 @@ export class Report {
   @Column()
   mileage:number;
 
-  @ManyToOne( () => User , (user) => user.reports)  // the first argument will return an user entity class and 2nd argument take the instance of user and returns the user's reports 
+  @ManyToOne( () => User , (user) => user.reports)  // the first argument will return an User entity class that is wrapped up inside the function and 2nd argument take the instance of user and returns the user's reports 
   user:User
 }
