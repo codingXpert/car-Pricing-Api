@@ -1,4 +1,5 @@
-import { Entity,
+import { 
+   Entity,
    Column, 
    PrimaryGeneratedColumn,
    ManyToMany,
@@ -10,6 +11,9 @@ import { Entity,
 export class Report {
   @PrimaryGeneratedColumn()
   id: number;
+
+  @Column({ default : false })   // by default all the reports is unapproved
+  approved : boolean;   
 
   @Column()
   price: number;
