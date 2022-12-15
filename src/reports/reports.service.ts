@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable , NotFoundException} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Report } from './report.entity';
@@ -22,5 +22,17 @@ export class ReportsService {
     }                                    //  the repository is going to extract just the user ID 
                                         //   from the entire instance , and it's going to save 
                                        //    that for us automatically inside the report table
+
+ async changeApproval(id: string , approved: boolean) {
+    const report = await this.repo.findOne({ where: { id: parseInt(id)}});
+    if (!report) {
+      throw new NotFoundException('report not found');
+    }
+
+    report.approved = approved;
+    return this.repo.save(report);
+  }
+
 }
+
 
