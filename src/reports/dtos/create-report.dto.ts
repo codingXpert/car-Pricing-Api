@@ -1,4 +1,5 @@
-import {  IsString,
+import { 
+    IsString,
     IsNumber,
     Min,
     Max,
@@ -6,7 +7,7 @@ import {  IsString,
     IsLatitude, 
 } from "class-validator";
 
-export class CreateReportsDto{
+export class CreateReportDto{
 
     @IsString()
     make : string;
@@ -25,7 +26,7 @@ export class CreateReportsDto{
     mileage : number;
 
     @IsLongitude()
-    lan : number;
+    lng : number;
 
     @IsLatitude()
     lat : number;

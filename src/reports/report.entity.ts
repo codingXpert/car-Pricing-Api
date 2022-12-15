@@ -12,7 +12,7 @@ export class Report {
   make:string;
 
   @Column()
-  model:"string"
+  model:string
 
   @Column()
   year:number
@@ -24,5 +24,5 @@ export class Report {
   lat:number
 
   @Column()
-  milage:number;
+  mileage:number;
 }
