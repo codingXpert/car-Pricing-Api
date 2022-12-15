@@ -5,10 +5,12 @@ import {
     Entity,
     Column,
     PrimaryGeneratedColumn,
+    OneToMany
   } from 'typeorm';
 
   import { UsersController } from './users.controller';
- 
+  import { Report } from 'src/reports/report.entity';
+  
   @Entity()
   export class User {
     @PrimaryGeneratedColumn()
@@ -18,8 +20,10 @@ import {
     email: string;
   
     @Column()
-   
     password: string;
+
+    @OneToMany( () => Report , (report) => report.user )
+    reports:Report[]
   
     @AfterInsert()    // Hook after Insert
     logInsert() {
