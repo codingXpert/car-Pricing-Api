@@ -1,6 +1,15 @@
 import { Injectable , NestMiddleware } from "@nestjs/common";
 import { Request , Response , NextFunction } from "express";
 import { UsersService } from "../users.service";
+import { User } from "../user.entity";
+
+declare global{
+    namespace Express {           // these lines are going to add or update and additional property to an existing interface
+        interface Request {      //  so , we are saying that go and find the express library , find interface called request , inside there 
+            currentUser?: User; //   and we are going to add in one more property to that interface
+        }
+    }
+}
 
 @Injectable()
 export class CurrentUserMiddleware implements NestMiddleware {
