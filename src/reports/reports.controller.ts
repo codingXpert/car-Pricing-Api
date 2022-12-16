@@ -4,7 +4,9 @@ import {
     Body,
     UseGuards,
     Patch,
-    Param
+    Param,
+    Get,
+    Query
 } from '@nestjs/common';
 import { CreateReportDto } from './dtos/create-report.dto';
 import { ReportsService } from './reports.service';
@@ -15,9 +17,17 @@ import { ReportDto } from './dtos/report.dto';
 import { Serialize } from 'src/interceptors/serialize.interceptor';
 import { ApprovedReportDto } from './dtos/approved-report.dto';
 import { AdminGuard } from 'src/guards/admin.guard';
+import { GetEstimateDto } from './dtos/get-estimate.dto';
 @Controller('reports')
 export class ReportsController {
     constructor(private reportsService:ReportsService){}
+
+@Get()
+getEstimate(@Query() query : GetEstimateDto){
+    
+}
+
+
     @Post()
     @UseGuards(AuthGuard)
     @Serialize(ReportDto)  // I want to serialize the out going response following the rules we setup inside ReportDto
