@@ -1,30 +1,31 @@
-import { Injectable , NotFoundException} from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Report } from './report.entity';
 import { CreateReportDto } from './dtos/create-report.dto';
-import { User } from 'src/users/user.entity';
-
+import { User } from '../users/user.entity';
+import { GetEstimateDto } from './dtos/get-estimate.dto';
 
 @Injectable()
 export class ReportsService {
-    constructor(@InjectRepository(Report) private repo:Repository<Report> ){}
-    
-    
-    create(reportDto : CreateReportDto , user:User){
-        const report = this.repo.create(reportDto);
-        report.user = user;  //associating or linking the user with reports
+  constructor(@InjectRepository(Report) private repo: Repository<Report>) {}
 
-        // console.log(report);
-        // console.log(report.user);
-        
-        return this.repo.save(report);    // when we call save on the reports behind the scenes , 
-    }                                    //  the repository is going to extract just the user ID 
-                                        //   from the entire instance , and it's going to save 
-                                       //    that for us automatically inside the report table
+  createEstimate(estimateDto: GetEstimateDto) {
+    return this.repo
+      .createQueryBuilder()
+      .select('*')
+      .where('make = :make', { make: estimateDto.make })
+      .getRawMany();
+  }
 
- async changeApproval(id: string , approved: boolean) {
-    const report = await this.repo.findOne({ where: { id: parseInt(id)}});
+  create(reportDto: CreateReportDto, user: User) {
+    const report = this.repo.create(reportDto);
+    report.user = user;
+    return this.repo.save(report);
+  }
+
+  async changeApproval(id: string, approved: boolean) {
+    const report = await this.repo.findOne({ where: { id: parseInt(id) } });
     if (!report) {
       throw new NotFoundException('report not found');
     }
@@ -32,7 +33,4 @@ export class ReportsService {
     report.approved = approved;
     return this.repo.save(report);
   }
-
 }
-
-
