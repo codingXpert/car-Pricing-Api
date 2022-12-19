@@ -16,10 +16,11 @@ export class ReportsService {
       .select('AVG(price)' , 'price')
       .where('make = :make', { make })
       .andWhere('model = :model' , {model})
-      .andWhere('lan - :lng BETWEEN -5 AND 5' , {lng})
+      .andWhere('lng - :lng BETWEEN -5 AND 5' , {lng})
       .andWhere('lat - :lat BETWEEN -5 AND 5' , {lat})
       .andWhere('year - :year BETWEEN -5 AND 5' , {year})
-      .orderBy('ABS(mileage - :mileage' , 'DESC')
+      .andWhere('approved IS TRUE')
+      .orderBy('ABS(mileage - :mileage)' , 'DESC')
       .setParameters({ mileage })    // that's just because of order by does not take a parameter 
                                    //  as second  argument
       .limit(3)   // want to see top 3 results only of the applied filters                           

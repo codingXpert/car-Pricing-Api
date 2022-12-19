@@ -3,17 +3,17 @@ POST http://localhost:3000/reports
 Content-Type: application/json
 
 {
-    "make": "honda",
-    "model": "city",
-    "year": 1980,
-    "mileage": 1000,
-    "lng": 0,
-    "lat": 0,
-    "price": 50000
+    "make": "ford",
+    "model": "mustang",
+    "year": 1982,
+    "mileage": 50000,
+    "lng": 45,
+    "lat": 45,
+    "price": 20000
 }
 
 ### Approving the existing report
-PATCH  http://localhost:3000/reports/2
+PATCH  http://localhost:3000/reports/12
 content-type: application/json
 
 {
@@ -21,4 +21,4 @@ content-type: application/json
 }
 
 ### get an estimate for an existing vehicle
-Get http://localhost:3000/reports?make=honda&model=citya&lng=0&lat=0&mileage=20000&year=1980
+Get http://localhost:3000/reports?make=ford&model=mustang&lng=45&lat=45&mileage=20000&year=1981
